@@ -1,32 +1,37 @@
-import { Component } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
-export class Filter extends Component {
-  handleSubmit = (values, actions) => {
-    this.props.handleFilter(values.filter);
-    this.props.handleContacts()
-        actions.resetForm();
-    };
-  render() {
 
+export const Filter = (props) => {
+ const { register, watch } = useForm({
+    defaultValues: {
+     filter: '',
+    }
+  });
+
+  
+let filter = watch('filter');
+
+  useEffect(() => {
+   
+    props.handleFilter(filter);
+    props.handleContacts()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter])
     return (
       <>
-        <Formik
-       initialValues={{ filter: ''}}
-       onSubmit={this.handleSubmit}
-        >
-                <Form>
-
-            <h2>Filter</h2>
-           <Field type="text" name="filter" />
-           <ErrorMessage name="filter" component="div" />
-           <button type="submit">
-            Submit
-           </button>
-         </Form>   
-     </Formik>
+         <form >
+        <h2>Filter</h2>
+          <input {...register("filter")} type="text" />
+        </form>
       </>
           
     );
-  }
+  
 }
+
+Filter.propTypes = {
+  handleFilter: PropTypes.func.isRequired,
+  handleContacts: PropTypes.func.isRequired,
+};
