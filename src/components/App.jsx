@@ -13,7 +13,7 @@ import { nanoid } from 'nanoid'
   filter: ''
 }
    
-   componentDidMount = () => {
+componentDidMount = () => {
      const contacts = localStorage.getItem('contacts');
      const parsedContacts = JSON.parse(contacts);
 
@@ -27,7 +27,7 @@ componentDidUpdate = (prevProps, prevState) => {
   }
 }
    
- handleAddContact = ({ name, number }) => {
+handleAddContact = ({ name, number }) => {
 		const names = this.state.contacts.map(contact => contact.name);
 		if (names.indexOf(name) >= 0) {
 			alert(name + " is already in contacts.");
@@ -40,7 +40,7 @@ componentDidUpdate = (prevProps, prevState) => {
 		});
 	};
 
-	handleDelete = idx => {
+handleDelete = idx => {
 		this.setState(prevState => {
 			const newContactsList = prevState.contacts.filter(contact => contact.id !== idx);
 			return { contacts: newContactsList };
@@ -52,7 +52,7 @@ handleFilter = (value) => {
   
    };
    
-   handleContacts = () => {
+handleContacts = () => {
 		const { filter, contacts } = this.state;
 		const normalizedFilter = filter.toLowerCase();
 
@@ -62,8 +62,6 @@ handleFilter = (value) => {
 	};
 
   render() {
-   
-    
     return (
       <>
         <div>
